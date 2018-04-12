@@ -1,8 +1,16 @@
-<div class="center jumbotron">
-  <h2>
-    If you want encrypt files, drop them here or
-    <a href="#">choose manually</a>.
-  </h2>
 
-  <%= link_to "Sign up now!", signup_path , class: "btn btn-lg btn-primary" %>
-</div>
+<% if logged_in? %>
+  <div class="row">
+
+  </div>
+<% else %>
+  <div class="center jumbotron">
+
+    <h2>
+      If you want to encrypt files, drop here or choose them manually
+      <a href="http://www.railstutorial.org/">choose them manually</a>
+    </h2>
+
+    <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+  </div>
+<% end %>
