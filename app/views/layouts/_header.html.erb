@@ -1,31 +1,21 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container">
-    <%= link_to "CryptThat", root_path, id: "logo" %>
-    <nav>
-      <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home", root_path %></li>
-        <li><%= link_to "Help", help_path %></li>
-        <% if logged_in? %>
-          <% if current_user.admin? %>
-            <li><%= link_to "Users", users_path %></li>
-          <% end %>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Account <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <li><%= link_to "Profile", current_user %></li>
-              <li><%= link_to "Settings", '#' %></li>
-              <li class="divider"></li>
-              <li>
-                <%= link_to "Log out", logout_path, method: :delete %>
-              </li>
-            </ul>
-          </li>
-        <% else %>
-          <li><%= link_to "Log in", login_path %></li>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <%= link_to 'CryptThat', root_path, class: 'navbar-brand' %>
+    </div>
+    <div class="nav-buttons">
+      <% if logged_in? %>
+        <% if current_user.admin? %>
+          <%= link_to "Users", users_path, class: "btn btn-info navbar-btn" %>
         <% end %>
-      </ul>
-    </nav>
+        <%= link_to "My Files", current_user,
+                        class: "btn btn-success navbar-btn" %>
+        <%= link_to "Log out", logout_path,
+                        method: :delete, class: "btn btn-danger navbar-btn" %>
+      <% else %>
+        <%= link_to 'Log in', login_path, class: "btn btn-success navbar-btn" %>
+        <%= link_to 'Sign up', signup_path, class: "btn btn-warning navbar-btn" %>>
+      <% end %>
+    </div>
   </div>
-</header>
+</nav>
