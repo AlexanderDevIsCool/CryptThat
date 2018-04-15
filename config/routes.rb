@@ -19,4 +19,8 @@ Rails.application.routes.draw do
   resources :users
   resources :account_activations, only: :edit
   resources :password_resets, only: %i[new create edit update]
+
+  get 'files_upload/new'
+  post 'files_upload/upload'
+  post 'files_upload/create'
 end

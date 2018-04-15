@@ -6,6 +6,7 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   <%= render 'layouts/shim' %>
+  <%= yield(:css) %>
 </head>
 <body>
 <%= render 'layouts/header' %>
@@ -14,6 +15,8 @@
     <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
   <% end %>
   <%= yield %>
+  <%= yield(:content) %><!-- For our main contents -->
+  <%= yield(:javascript) %>
   <%= render 'layouts/footer' %>
 </div>
 </body>

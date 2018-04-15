@@ -1,16 +1,51 @@
+<%= content_for(:css) do %>
+  <%= stylesheet_link_tag 'dropzone' %>
+  <%= stylesheet_link_tag 'basic' %>
 
-<% if logged_in? %>
-  <div class="row">
+<% end %>
 
-  </div>
-<% else %>
-  <div class="center jumbotron">
+<%=content_for(:content) do %>
+  <% if flash.notice %>
+    <div class="alert alert-success"><p><%= flash.notice %></p></div>
+  <% end %>
+    <div class="row">
+      <%= form_for :request, :url => request.base_url+'/files_upload/create', html: {id:'myForm'} do %>
+        <div id="mydropzone" class="dropzone center jumbotron"></div>
+        <div id="msgBoard"></div>
+        <br>
+        <input type='submit' value="Create your product">
+        </div>
+      <% end %>
+<% end %>
 
-    <h2>
-      If you want to encrypt files, drop here or choose them manually
-      <a href="http://www.railstutorial.org/">choose them manually</a>
-    </h2>
+<%= content_for(:javascript) do %>
+  <%= javascript_include_tag "dropzone" %>
+  <script type="text/javascript">
+      var AUTH_TOKEN=$('meta[name="csrf-token"]').attr('content');
 
-    <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
-  </div>
+      Dropzone.autoDiscover = false;
+      var myDropzone = new Dropzone("div#mydropzone",{
+          url: "<%= request.base_url %>/files_upload/upload",
+          autoProcessQueue: false,
+          uploadMultiple: true,
+          addRemoveLinks:true,
+          parallelUploads:10,
+          params:{
+              'authenticity_token':  AUTH_TOKEN
+          },
+          successmultiple: function(data,response){
+              $('#msgBoard').append(response.message).addClass("alert alert-success");
+              $('#msgBoard').delay(2000).fadeOut();
+              $('#fileslist').val(response.filesList);
+              $('#myForm').off('submit').submit();
+          }
+      });
+
+      $('#myForm').submit(function(e){
+          if(myDropzone.getQueuedFiles().length > 0){
+              e.preventDefault();
+              myDropzone.processQueue();
+          }
+      });
+  </script>
 <% end %>
