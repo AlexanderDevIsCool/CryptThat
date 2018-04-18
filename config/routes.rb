@@ -23,4 +23,5 @@ Rails.application.routes.draw do
   get 'files_upload/new'
   post 'files_upload/upload'
   post 'files_upload/create'
+  get 'files_upload/index'
 end

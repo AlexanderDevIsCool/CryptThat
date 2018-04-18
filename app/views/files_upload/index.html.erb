@@ -1,0 +1,11 @@
+<% provide(:title, 'Your files') %>
+
+<ul class="users">
+  <% @files.each do |file| %>
+    <li>
+      <%= file.filename %>
+      | <%= link_to "delete", current_user, method: :delete,
+                    data: { confirm: "You sure?" } %>
+    </li>
+  <% end %>
+</ul>

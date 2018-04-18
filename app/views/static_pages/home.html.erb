@@ -9,11 +9,24 @@
     <div class="alert alert-success"><p><%= flash.notice %></p></div>
   <% end %>
     <div class="row">
-      <%= form_for :request, :url => request.base_url+'/files_upload/create', html: {id:'myForm'} do %>
+      <%= form_for :request, :url => request.base_url+'/files_upload/create', html: {id:'myForm'} do |f| %>
         <div id="mydropzone" class="dropzone center jumbotron"></div>
         <div id="msgBoard"></div>
         <br>
-        <input type='submit' value="Create your product">
+        <div class="btn-group btn-group-toggle, fix-some" data-toggle="buttons">
+          <label class="btn btn-primary active">
+            <%= f.radio_button :crypt, true, :checked => true, id: 'option1' %> Encrypt
+          </label>
+          <label class="btn btn-primary">
+            <%= f.radio_button :crypt, false, id: 'option2' %> Decrypt
+          </label>
+        </div>
+
+        <%= f.select(:cipher_value, options_for_select([['OpenSSL AES-256', '256'],
+                                                        ['OpenSSL AES-192', '192'],
+                                                        ['OpenSSL AES-128', '128']]),
+                     class: 'btn btn-secondary dropdown-toggle')%>
+        <input type='submit' value="Crypt / Decrypt" class="btn btn-info">
         </div>
       <% end %>
 <% end %>
