@@ -6,7 +6,7 @@ class FilesUploadController < ApplicationController
   def new; end
 
   def index
-    @files = CryptCipher.all
+    @files = current_user.crypt_ciphers.order("filename DESC").all
   end
 
   def create
@@ -73,6 +73,12 @@ class FilesUploadController < ApplicationController
       end
     end
     render json: { message: 'You have successfully uploded your images.' }
+  end
+
+  def destroy
+    CryptCipher.find(params[:format]).destroy
+    flash[:success] = 'File data deleted'
+    redirect_to files_upload_index_path
   end
 
   private

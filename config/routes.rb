@@ -24,4 +24,5 @@ Rails.application.routes.draw do
   post 'files_upload/upload'
   post 'files_upload/create'
   get 'files_upload/index'
+  delete 'files_upload/destroy'
 end

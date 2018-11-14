@@ -4,7 +4,7 @@
   <% @files.each do |file| %>
     <li>
       <%= file.filename %>
-      | <%= link_to "delete", current_user, method: :delete,
+      | <%= link_to "delete", files_upload_destroy_path(file.id), method: :delete,
                     data: { confirm: "You sure?" } %>
     </li>
   <% end %>
